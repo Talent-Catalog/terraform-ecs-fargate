@@ -1,6 +1,6 @@
 [
   {
-    "name": "tc-me-test-app",
+    "name": "tc-me-test",
     "image": "${app_image}",
     "cpu": ${fargate_cpu},
     "memory": ${fargate_memory},
@@ -8,7 +8,7 @@
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/tc-me-test-app",
+          "awslogs-group": "/ecs/tc-me-test",
           "awslogs-region": "${aws_region}",
           "awslogs-stream-prefix": "ecs"
         }

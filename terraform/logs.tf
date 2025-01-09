@@ -2,7 +2,7 @@
 
 # Set up CloudWatch group and log stream and retain logs for 30 days
 resource "aws_cloudwatch_log_group" "tc-me-test_log_group" {
-  name              = "/ecs/tc-me-test-app"
+  name              = "/ecs/tc-me-test"
   retention_in_days = 30
 
   tags = {
