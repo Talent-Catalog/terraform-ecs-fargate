@@ -15,11 +15,6 @@ variable "az_count" {
   default     = "2"
 }
 
-variable "app_image" {
-  description = "Docker superset image to run in the ECS cluster"
-  default     = "231168606641.dkr.ecr.us-east-1.amazonaws.com/tc-me-test:latest"
-}
-
 variable "app_port" {
   description = "Port exposed by the docker image to redirect traffic to"
   default     = 8088

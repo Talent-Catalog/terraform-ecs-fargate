@@ -8,7 +8,7 @@ data "template_file" "tc-me-test_app" {
   template = file("./templates/ecs/tc-me-test.json.tpl")
 
   vars = {
-    app_image      = var.app_image
+    app_image      = aws_ecr_repository.tc-me-test.repository_url
     app_port       = var.app_port
     fargate_cpu    = var.fargate_cpu
     fargate_memory = var.fargate_memory
