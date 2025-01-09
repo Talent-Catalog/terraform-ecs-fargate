@@ -17,7 +17,7 @@ data "template_file" "tc-me-test_app" {
 }
 
 resource "aws_ecs_task_definition" "app" {
-  family                   = "tc-me-test-app-task"
+  family                   = "tc-me-test-task"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -41,7 +41,7 @@ resource "aws_ecs_service" "main" {
 
   load_balancer {
     target_group_arn = aws_alb_target_group.app.id
-    container_name   = "tc-me-test-app"
+    container_name   = "tc-me-test"
     container_port   = var.app_port
   }
 
