@@ -41,7 +41,21 @@ docker push 231168606641.dkr.ecr.us-east-1.amazonaws.com/tc-me-test
                   
 ## Building the AWS Infrastructure
 
-TBC
+Initialize Terraform by going to the terraform directory and typing:
+
+```
+terraform init
+```
+  
+Plan the deployment - outputting to file "tfplan"
+```
+terraform plan -out tfplan
+```
+
+If all looks good...
+```
+terraform apply "tfplan"
+```
 
 ## Documentation
    
