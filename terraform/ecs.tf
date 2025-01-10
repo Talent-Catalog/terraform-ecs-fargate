@@ -1,5 +1,8 @@
 # ecs.tf
 
+#todo Great doc here https://github.com/terraform-aws-modules/terraform-aws-ecs/blob/master/docs/README.md.
+# Should I use the standard terraform ecs moddule?
+
 resource "aws_ecs_cluster" "main" {
   name = "tc-me-test-cluster"
 }
