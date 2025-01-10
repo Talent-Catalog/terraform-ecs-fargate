@@ -8,6 +8,7 @@ resource "aws_security_group" "lb" {
 
   ingress {
     protocol    = "tcp"
+    #todo Shouldn't these be standard 80 ports
     from_port   = var.app_port
     to_port     = var.app_port
     cidr_blocks = ["0.0.0.0/0"]
@@ -41,4 +42,27 @@ resource "aws_security_group" "ecs_tasks" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+#todo I sthis all that is needed?
+resource "aws_security_group" "database" {
+  name        = "superset-database-security-group"
+  description = "Allow access to the database"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 

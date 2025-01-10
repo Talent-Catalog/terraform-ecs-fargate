@@ -25,6 +25,24 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 }
 
+#todo This messy stuff is already done in a standard way here examples/complete-postgres/main.tf in
+#todo the standard terraform module https://github.com/terraform-aws-modules/terraform-aws-rds/blob/master/examples/complete-postgres/main.tf
+#todo It uses module terraform-aws-vpc to do what is needed proving outs which can be used elsewhere
+resource "aws_subnet" "data" {
+  cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, var.az_count + var.az_count)
+  availability_zone = "us-east-1a"
+  vpc_id            = aws_vpc.main.id
+}
+
+resource "aws_db_subnet_group" "main" {
+  name       = "main"
+  subnet_ids = [aws_subnet.data.id]
+
+  tags = {
+    Name = "Superset DB subnet group"
+  }
+}
+
 # Internet Gateway for the public subnet
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
