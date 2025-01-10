@@ -56,6 +56,12 @@ If all looks good...
 ```
 terraform apply "tfplan"
 ```
+   
+
+You can bring it all down with:
+```
+terraform destroy
+```
 
 ## Documentation
    
