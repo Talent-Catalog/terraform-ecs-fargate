@@ -83,6 +83,8 @@ module "ecs_service" {
       cpu       = 512
       memory    = 1024
       essential = true
+
+      # todo Can I compute this from local container name - see https://developer.hashicorp.com/terraform/language/values/locals
       image     = "public.ecr.aws/aws-containers/tc-me-frontend:latest"
       port_mappings = [
         {
