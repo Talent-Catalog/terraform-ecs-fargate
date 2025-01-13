@@ -13,6 +13,8 @@ locals {
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   container_name = "tc-me-frontend"
+
+  # todo This should be the superset port
   container_port = 3000
 
   tags = {
