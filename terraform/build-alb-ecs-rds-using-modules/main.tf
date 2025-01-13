@@ -7,15 +7,14 @@ data "aws_availability_zones" "available" {}
 
 locals {
   name    = "talent-catalog-m-and-e"
-  region  = "us-east-1"
+  region  = var.aws_region
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   container_name = "tc-me-frontend"
 
-  # todo This should be the superset port
-  container_port = 3000
+  container_port = var.app_port
 
   tags = {
     Name       = local.name
@@ -60,8 +59,8 @@ module "ecs_service" {
   name        = local.name
   cluster_arn = module.ecs_cluster.arn
 
-  cpu    = 1024
-  memory = 4096
+  cpu    = var.fargate_cpu
+  memory = var.fargate_memory
 
   # Enables ECS Exec
   enable_execute_command = true
@@ -87,7 +86,7 @@ module "ecs_service" {
       essential = true
 
       # todo Can I compute this from local container name - see https://developer.hashicorp.com/terraform/language/values/locals
-      image     = "public.ecr.aws/aws-containers/tc-me-frontend:latest"
+      image     = aws_ecr_repository.tc-me-test.repository_url
       port_mappings = [
         {
           name          = local.container_name
@@ -176,59 +175,6 @@ module "ecs_service" {
 
   service_tags = {
     "ServiceTag" = "Tag on service level"
-  }
-
-  tags = local.tags
-}
-
-################################################################################
-# Standalone Task Definition (w/o Service)
-################################################################################
-
-module "ecs_task_definition" {
-  source = "terraform-aws-modules/ecs/aws//modules/service"
-
-  # Service
-  name        = "${local.name}-standalone"
-  cluster_arn = module.ecs_cluster.arn
-
-  # Task Definition
-  volume = {
-    ex-vol = {}
-  }
-
-  runtime_platform = {
-    cpu_architecture        = "ARM64"
-    operating_system_family = "LINUX"
-  }
-
-  # Container definition(s)
-  container_definitions = {
-    al2023 = {
-      image = "public.ecr.aws/amazonlinux/amazonlinux:2023-minimal"
-
-      mount_points = [
-        {
-          sourceVolume  = "ex-vol",
-          containerPath = "/var/www/ex-vol"
-        }
-      ]
-
-      command    = ["echo hello world"]
-      entrypoint = ["/usr/bin/sh", "-c"]
-    }
-  }
-
-  subnet_ids = module.vpc.private_subnets
-
-  security_group_rules = {
-    egress_all = {
-      type        = "egress"
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
-      cidr_blocks = ["0.0.0.0/0"]
-    }
   }
 
   tags = local.tags
@@ -414,7 +360,7 @@ module "alb" {
         healthy_threshold   = 5
         interval            = 30
         matcher             = "200"
-        path                = "/"
+        path                = var.health_check_path
         port                = "traffic-port"
         protocol            = "HTTP"
         timeout             = 5
