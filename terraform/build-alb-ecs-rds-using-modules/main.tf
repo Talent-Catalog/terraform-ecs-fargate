@@ -89,12 +89,11 @@ module "ecs_service" {
 
       enable_cloudwatch_logging = false
       log_configuration = {
-        logDriver = "awsfirelens"
+        logDriver = "awslogs"
         options = {
-          Name                    = "firehose"
-          region                  = local.region
-          delivery_stream         = "my-stream"
-          log-driver-buffer-limit = "2097152"
+          awslogs-group         = "/fargate/service/tctalent-me-fargate-log"
+          awslogs-stream-prefix = "ecs"
+          awslogs-region        = "us-east-1"
         }
       }
 
