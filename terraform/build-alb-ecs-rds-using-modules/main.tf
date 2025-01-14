@@ -12,7 +12,7 @@ locals {
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
-  container_name = "tctalent-me-containner"
+  container_name = "tctalent-me-container"
 
   container_port = var.app_port
 
