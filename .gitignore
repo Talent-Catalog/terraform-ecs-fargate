@@ -7,3 +7,5 @@
 .terraform/
 /terraform/.terraform.lock.hcl
 /terraform/tfplan
+/terraform/build-alb-ecs-rds-using-modules/.terraform.lock.hcl
+/terraform/build-alb-ecs-rds-using-modules/tfplan
