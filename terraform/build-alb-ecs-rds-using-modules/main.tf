@@ -87,7 +87,7 @@ module "ecs_service" {
       # Example image used requires access to write to root filesystem
       readonly_root_filesystem = false
 
-      enable_cloudwatch_logging = false
+      enable_cloudwatch_logging = true
       log_configuration = {
         logDriver = "awslogs"
         options = {
