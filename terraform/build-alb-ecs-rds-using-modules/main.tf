@@ -6,13 +6,13 @@ data "aws_caller_identity" "current" {}
 data "aws_availability_zones" "available" {}
 
 locals {
-  name    = "talent-catalog-m-and-e"
+  name    = "tctalent-me"
   region  = var.aws_region
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
-  container_name = "tc-me-frontend"
+  container_name = "tctalent-me-containner"
 
   container_port = var.app_port
 
@@ -86,7 +86,7 @@ module "ecs_service" {
       essential = true
 
       # todo Can I compute this from local container name - see https://developer.hashicorp.com/terraform/language/values/locals
-      image     = aws_ecr_repository.tc-me-test.repository_url
+      image     = aws_ecr_repository.tctalent-me.repository_url
       port_mappings = [
         {
           name          = local.container_name
@@ -220,7 +220,7 @@ module "db" {
   performance_insights_retention_period = 7
   create_monitoring_role                = true
   monitoring_interval                   = 60
-  monitoring_role_name                  = "tc-me-monitoring-role-name"
+  monitoring_role_name                  = "tctalent-me-monitoring-role"
   monitoring_role_use_name_prefix       = true
   monitoring_role_description           = "Monitoring Talent Catalog M&E"
 

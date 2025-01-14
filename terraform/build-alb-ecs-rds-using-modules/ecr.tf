@@ -1,3 +1,3 @@
-resource "aws_ecr_repository" "tc-me-test" {
-  name = "tc-me-test"
+resource "aws_ecr_repository" "tctalent-me" {
+  name = "tctalent-me"
 }
