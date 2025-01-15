@@ -6,8 +6,7 @@ This project contains:
 * Superset and Docker configuration for creating a Superset Docker image suitable for uploading
 to an Amazon AWS repository.
 
-* Terraform config for deploying docker containers to ECS using Fargate launch type. 
-This Terraform part has been forked from https://github.com/bradford-hamilton/terraform-ecs-fargate
+* Terraform config for deploying docker containers to ECS using Fargate launch type and linking to an RDS database
 
 ## Building and uploading the Superset image to Amazon AWS
         
