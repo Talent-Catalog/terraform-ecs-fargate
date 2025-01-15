@@ -2,6 +2,11 @@
 # FROM apache/superset:latest
 FROM apache/superset:latest
 
+ENV SUPERSET_ADMIN_USERNAME=admin
+ENV SUPERSET_ADMIN_PASSWORD=admin
+ENV SUPERSET_ADMIN_FIRSTNAME=Admin
+ENV SUPERSET_ADMIN_LASTNAME=User
+ENV SUPERSET_ADMIN_EMAIL=admin@example.com
 
 # Install dependencies for Athena
 USER root
