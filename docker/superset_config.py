@@ -9,7 +9,7 @@
 
 SECRET_KEY = "NQU3OL6QGiyHVm8pEjMPDKSmIYqNE89tB3Bm41Cj8wZ36WP3fifiVRaM"
 
-APP_NAME = "Talent Catalog"
+APP_NAME = "Talent Catalog Portal"
 
 import logging
 import os
