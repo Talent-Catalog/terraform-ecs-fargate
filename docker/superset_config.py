@@ -5,6 +5,8 @@
 
 SECRET_KEY = "NQU3OL6QGiyHVm8pEjMPDKSmIYqNE89tB3Bm41Cj8wZ36WP3fifiVRaM"
 
+APP_NAME = "Talent Catalog"
+
 # Copy https://github.com/apache/superset/blob/master/docker/pythonpath_dev/superset_config.py
 #
 # Note that the set-up below takes most configuration from environment variables.
