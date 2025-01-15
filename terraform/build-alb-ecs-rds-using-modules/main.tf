@@ -1,3 +1,7 @@
+# Use standard Terraform AWS modules where possible.
+# See https://registry.terraform.io/browse/modules?provider=aws
+
+
 provider "aws" {
   region = local.region
 }
@@ -55,6 +59,7 @@ module "ecs_cluster" {
 
 module "ecs_service" {
   source = "terraform-aws-modules/ecs/aws//modules/service"
+  depends_on = [module.db]
 
   name        = local.name
   cluster_arn = module.ecs_cluster.arn
@@ -81,6 +86,13 @@ module "ecs_service" {
           containerPort = local.container_port
           hostPort      = local.container_port
           protocol      = "tcp"
+        }
+      ]
+
+      environment = [
+        {
+          name  = "DATABASE_HOST"
+          value = module.db.db_instance_address
         }
       ]
 
